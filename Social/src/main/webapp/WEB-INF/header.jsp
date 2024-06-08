@@ -6,7 +6,7 @@
             <a class="p-2 text-dark" href="${pageContext.request.contextPath}/home">Home</a>
             <a class="p-2 text-dark" href="${pageContext.request.contextPath}/profile">Profile</a>
             <a class="p-2 text-dark" href="${pageContext.request.contextPath}/message">Message</a>
-            <a class="p-2 text-dark" href="http://localhost/feedback/feedback.php">Feedback</a>
+            <a class="p-2 text-dark" href="http://localhost/feedback/feedback.php">Report</a>
         </nav>
         <div style="width: 110px; text-align: center;">
             <img style="border-radius: 100%; height: 60px; width: 60px;"

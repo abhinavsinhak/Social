@@ -47,16 +47,38 @@ public class HomeServlet extends HttpServlet {
             return;
         }
 
-        String post = request.getParameter("post").trim();
+        String action = request.getParameter("action");
+        int userId = (int) session.getAttribute("user_id");
 
-        if(!post.equals("")) {
+        if ("post".equals(action)) {
+            String postContent = request.getParameter("post").trim();
+            if (!postContent.equals("")) {
+                try {
+                    PostDAO postDAO = new PostDAO();
+                    postDAO.insertPost(userId, postContent);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if ("like".equals(action)) {
+            int postId = Integer.parseInt(request.getParameter("post_id"));
             try {
                 PostDAO postDAO = new PostDAO();
-                postDAO.insertPost((int) session.getAttribute("user_id"), post);
-                response.sendRedirect("home");
+                postDAO.addLike(postId, userId);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else if ("comment".equals(action)) {
+            int postId = Integer.parseInt(request.getParameter("post_id"));
+            String comment = request.getParameter("comment");
+            try {
+                PostDAO postDAO = new PostDAO();
+                postDAO.addComment(postId, userId, comment);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+
+        response.sendRedirect("home");
     }
 }
